@@ -1,5 +1,5 @@
 # ShopRURetails
-A single service api for generating discounts, invoice and customers
+A single service api for generating invoice, adding customers and discount
 # .Net SDK and Runtime
 - Download and istall the .NET SDK and Runtime
   >https://dotnet.microsoft.com/download
