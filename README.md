@@ -1,12 +1,12 @@
-# ShopsRURetails
+# ShopRURetails
 A single service api for generating discounts, invoice and customers
-# .Net SDK
-- Download and istall the .NET SDK
+# .Net SDK and Runtime
+- Download and istall the .NET SDK and Runtime
   >https://dotnet.microsoft.com/download
 
 
 # Visual Studio
-- Simply open the solution file <code>ShopsRUs.sln</code> 
+- Simply open the solution file <code>SHOPRURETAIL.sln</code> 
   >and wait for project restore. 
   
   >then build/run.
