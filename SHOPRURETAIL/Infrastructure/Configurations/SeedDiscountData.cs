@@ -20,26 +20,30 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
                     Id = 1,
                     Name = "Affiliate",
                     Value = 10,
-                    IsPercentage = true
+                    IsPercentage = true, 
+                    CustomerTypeId=2
+                     
                 },
                 new DiscountType
                 {
                     Id = 2,
                     Name = "Employee",
                     Value = 30,
-                    IsPercentage = true
+                    IsPercentage = true,
+                    CustomerTypeId=3
                 },
                 new DiscountType
                 {
                     Id = 3,
                     Name = "Customer",
                     Value = 5,
-                    IsPercentage = true
+                    IsPercentage = true,
+                    CustomerTypeId= 1
                 },
                 new DiscountType
                 {
                     Id = 4,
-                    Name = "100DollarBill",
+                    Name = "DollarBill",
                     Value = 5,
                     IsPercentage = false
                 }

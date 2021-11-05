@@ -20,21 +20,6 @@ namespace SHOPRURETAIL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DiscountType",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 55, nullable: false),
-                    Value = table.Column<decimal>(type: "decimal(19, 2)", nullable: false),
-                    IsPercentage = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DiscountType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -43,7 +28,7 @@ namespace SHOPRURETAIL.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Category = table.Column<string>(type: "TEXT", nullable: true)
+                    Category = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,10 +60,32 @@ namespace SHOPRURETAIL.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DiscountType",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
+                    Value = table.Column<decimal>(type: "TEXT", nullable: false),
+                    IsPercentage = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CustomerTypeId = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscountType", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DiscountType_CustomerType_CustomerTypeId",
+                        column: x => x.CustomerTypeId,
+                        principalTable: "CustomerType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "CustomerType",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1L, "Customer" });
+                values: new object[] { 1L, "Regular" });
 
             migrationBuilder.InsertData(
                 table: "CustomerType",
@@ -92,53 +99,38 @@ namespace SHOPRURETAIL.Migrations
 
             migrationBuilder.InsertData(
                 table: "DiscountType",
-                columns: new[] { "Id", "IsPercentage", "Name", "Value" },
-                values: new object[] { 1L, true, "Affiliate", 10m });
-
-            migrationBuilder.InsertData(
-                table: "DiscountType",
-                columns: new[] { "Id", "IsPercentage", "Name", "Value" },
-                values: new object[] { 2L, true, "Employee", 30m });
-
-            migrationBuilder.InsertData(
-                table: "DiscountType",
-                columns: new[] { "Id", "IsPercentage", "Name", "Value" },
-                values: new object[] { 3L, true, "Customer", 5m });
-
-            migrationBuilder.InsertData(
-                table: "DiscountType",
-                columns: new[] { "Id", "IsPercentage", "Name", "Value" },
-                values: new object[] { 4L, false, "100DollarBill", 5m });
+                columns: new[] { "Id", "CustomerTypeId", "IsPercentage", "Name", "Value" },
+                values: new object[] { 4L, null, false, "DollarBill", 5m });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Category", "Description", "Name", "UnitPrice" },
-                values: new object[] { 1L, "Groceries", "OLoyin Beans", "Beans", 500m });
+                values: new object[] { 1L, 1, "OLoyin Beans", "Beans", 500m });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Category", "Description", "Name", "UnitPrice" },
-                values: new object[] { 2L, "Electronics", "Beats by Dre Headset", "HeadSet", 5000m });
+                values: new object[] { 2L, 2, "Beats by Dre Headset", "HeadSet", 5000m });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Category", "Description", "Name", "UnitPrice" },
-                values: new object[] { 3L, "Groceries", "Power Oil", " Oil", 1500m });
+                values: new object[] { 3L, 1, "Power Oil", " Oil", 1500m });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Category", "Description", "Name", "UnitPrice" },
-                values: new object[] { 4L, "Groceries", "Poundo Yam", "Poundo Yam", 7800m });
+                values: new object[] { 4L, 1, "Poundo Yam", "Poundo Yam", 7800m });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Category", "Description", "Name", "UnitPrice" },
-                values: new object[] { 5L, "1 Crate of Raw Egg", "Poundo Yam", "Egg", 5600m });
+                values: new object[] { 5L, 1, "1 Crate of Raw Egg", "Egg", 5600m });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Category", "Description", "Name", "UnitPrice" },
-                values: new object[] { 6L, "Electronics", "Binatone Standing Fan", "Binatone Fan", 9000m });
+                values: new object[] { 6L, 2, "Binatone Standing Fan", "Binatone Fan", 9000m });
 
             migrationBuilder.InsertData(
                 table: "Customer",
@@ -165,6 +157,21 @@ namespace SHOPRURETAIL.Migrations
                 columns: new[] { "CustomerId", "Address", "CustomerTypeId", "Email", "FirstName", "LastName", "MiddleName", "PhoneNumber" },
                 values: new object[] { 5L, null, 3L, "bolajoko@email.com", "Bola", "Joko", null, "123456789" });
 
+            migrationBuilder.InsertData(
+                table: "DiscountType",
+                columns: new[] { "Id", "CustomerTypeId", "IsPercentage", "Name", "Value" },
+                values: new object[] { 3L, 1L, true, "Customer", 5m });
+
+            migrationBuilder.InsertData(
+                table: "DiscountType",
+                columns: new[] { "Id", "CustomerTypeId", "IsPercentage", "Name", "Value" },
+                values: new object[] { 1L, 2L, true, "Affiliate", 10m });
+
+            migrationBuilder.InsertData(
+                table: "DiscountType",
+                columns: new[] { "Id", "CustomerTypeId", "IsPercentage", "Name", "Value" },
+                values: new object[] { 2L, 3L, true, "Employee", 30m });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_CustomerTypeId",
                 table: "Customer",
@@ -181,6 +188,11 @@ namespace SHOPRURETAIL.Migrations
                 table: "CustomerType",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DiscountType_CustomerTypeId",
+                table: "DiscountType",
+                column: "CustomerTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DiscountType_Name",

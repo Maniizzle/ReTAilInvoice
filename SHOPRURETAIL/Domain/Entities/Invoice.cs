@@ -32,8 +32,10 @@ namespace SHOPRURETAIL.Domain.Entities
         public decimal TotalCost { get; set; }
 
         public long CustomerId { get; set; }
-        public Customer Customers { get; set; }
+        public Customer Customer { get; set; }
 
-        public ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+        public bool IsPayed { get; set; }
+
+        public ICollection<InvoiceItem> InvoiceItems { get; set; }
     }
 }

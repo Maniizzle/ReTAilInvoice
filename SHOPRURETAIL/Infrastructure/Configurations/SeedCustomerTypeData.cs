@@ -17,7 +17,7 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
             (
                 new CustomerType
                 {
-                   Id=1,Name="Customer"
+                   Id=1,Name= "Regular"
                 },
                 new CustomerType
                 {

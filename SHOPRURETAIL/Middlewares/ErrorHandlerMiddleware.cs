@@ -36,7 +36,6 @@ namespace SHOPRURETAIL.Middlewares
                     case ApiException e:
                         // custom application error
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        responseModel.Message ="Bad Request";
                         break;
                     case ValidationException e:
                         // custom application error

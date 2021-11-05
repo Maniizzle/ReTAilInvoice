@@ -33,6 +33,7 @@ namespace SHOPRURETAIL.Application.Features.Discounts.Commands
             var discountType = _discountRepo.GetByParameter(c => c.Name.ToLower().Trim() == request.Name.ToLower().Trim()).FirstOrDefault();
             if (discountType is not null) throw new ApiException(" discount type already exist");
 
+            if (request.CustomerTypeId == 0) request.CustomerTypeId = null;
             discountType = _mapper.Map<DiscountType>(request);
             await _discountRepo.AddAsync(discountType);
             return new Response<long>(discountType.Id);

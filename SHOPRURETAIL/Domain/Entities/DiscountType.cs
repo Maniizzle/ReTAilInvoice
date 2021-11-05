@@ -13,14 +13,16 @@ namespace SHOPRURETAIL.Domain.Entities
         public long Id { get; set; }
 
         [Required]
-        [MaxLength(55)]
+        [MaxLength(150)]
         public string Name { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(19, 2)")]
         public decimal Value { get; set; }
 
         public bool IsPercentage { get; set; }
+        public long? CustomerTypeId { get; set; }
+        public CustomerType CustomerType { get; set; }
     
     }
+
 }

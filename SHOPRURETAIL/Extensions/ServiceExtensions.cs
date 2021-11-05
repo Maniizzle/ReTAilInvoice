@@ -16,6 +16,8 @@ using SHOPRURETAIL.Application.Interfaces;
 using SHOPRURETAIL.Infrastructure.Persistence.Repository;
 using SHOPRURETAIL.Application.Interfaces.Repositories;
 using Infrastructure.Persistence.Repositories;
+using SHOPRURETAIL.Application.Services;
+using SHOPRURETAIL.Application.Interfaces.Services;
 
 namespace SHOPRURETAIL.Extensions
 {
@@ -33,9 +35,10 @@ namespace SHOPRURETAIL.Extensions
 
             #endregion
 
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddTransient<ICustomerRepositoryAsync,CustomerRepositoryAsync>();
-            services.AddTransient<IProductRepositoryAsync,ProductRepositoryAsync>();
+            services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddScoped<ICustomerRepositoryAsync,CustomerRepositoryAsync>();
+            services.AddScoped<IProductRepositoryAsync,ProductRepositoryAsync>();
+            services.AddScoped<IDiscountService, DiscountService>();
             
         }
         public static void AddSwaggerExtension(this IServiceCollection services)

@@ -9,7 +9,7 @@ using SHOPRURETAIL.Infrastructure.Contexts;
 namespace SHOPRURETAIL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211103141537_initial")]
+    [Migration("20211105101242_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 1L,
-                            Name = "Customer"
+                            Name = "Regular"
                         },
                         new
                         {
@@ -155,18 +155,23 @@ namespace SHOPRURETAIL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<long?>("CustomerTypeId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsPercentage")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(55)
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("decimal(19, 2)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerTypeId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -177,6 +182,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 1L,
+                            CustomerTypeId = 2L,
                             IsPercentage = true,
                             Name = "Affiliate",
                             Value = 10m
@@ -184,6 +190,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 2L,
+                            CustomerTypeId = 3L,
                             IsPercentage = true,
                             Name = "Employee",
                             Value = 30m
@@ -191,6 +198,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 3L,
+                            CustomerTypeId = 1L,
                             IsPercentage = true,
                             Name = "Customer",
                             Value = 5m
@@ -199,7 +207,7 @@ namespace SHOPRURETAIL.Migrations
                         {
                             Id = 4L,
                             IsPercentage = false,
-                            Name = "100DollarBill",
+                            Name = "DollarBill",
                             Value = 5m
                         });
                 });
@@ -210,8 +218,8 @@ namespace SHOPRURETAIL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Category")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -230,7 +238,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 1L,
-                            Category = "Groceries",
+                            Category = 1,
                             Description = "OLoyin Beans",
                             Name = "Beans",
                             UnitPrice = 500m
@@ -238,7 +246,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 2L,
-                            Category = "Electronics",
+                            Category = 2,
                             Description = "Beats by Dre Headset",
                             Name = "HeadSet",
                             UnitPrice = 5000m
@@ -246,7 +254,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 3L,
-                            Category = "Groceries",
+                            Category = 1,
                             Description = "Power Oil",
                             Name = " Oil",
                             UnitPrice = 1500m
@@ -254,7 +262,7 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 4L,
-                            Category = "Groceries",
+                            Category = 1,
                             Description = "Poundo Yam",
                             Name = "Poundo Yam",
                             UnitPrice = 7800m
@@ -262,15 +270,15 @@ namespace SHOPRURETAIL.Migrations
                         new
                         {
                             Id = 5L,
-                            Category = "1 Crate of Raw Egg",
-                            Description = "Poundo Yam",
+                            Category = 1,
+                            Description = "1 Crate of Raw Egg",
                             Name = "Egg",
                             UnitPrice = 5600m
                         },
                         new
                         {
                             Id = 6L,
-                            Category = "Electronics",
+                            Category = 2,
                             Description = "Binatone Standing Fan",
                             Name = "Binatone Fan",
                             UnitPrice = 9000m
@@ -278,6 +286,15 @@ namespace SHOPRURETAIL.Migrations
                 });
 
             modelBuilder.Entity("SHOPRURETAIL.Domain.Entities.Customer", b =>
+                {
+                    b.HasOne("SHOPRURETAIL.Domain.Entities.CustomerType", "CustomerType")
+                        .WithMany()
+                        .HasForeignKey("CustomerTypeId");
+
+                    b.Navigation("CustomerType");
+                });
+
+            modelBuilder.Entity("SHOPRURETAIL.Domain.Entities.DiscountType", b =>
                 {
                     b.HasOne("SHOPRURETAIL.Domain.Entities.CustomerType", "CustomerType")
                         .WithMany()

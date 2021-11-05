@@ -27,7 +27,7 @@ namespace SHOPRURETAIL
                 host.Run();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //log error
                 return;

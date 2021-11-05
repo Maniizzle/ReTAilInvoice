@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace SHOPRURETAIL.Application.Features.Discounts.Queries
 {
-    public class GetDiscountPercentageByTypeQuery: IRequest<Response<decimal>>
+    public class GetDiscountPercentageByTypeQuery: IRequest<Response<string>>
     {
         public string Type { get; set; }
     }
 
-    public class GetDiscountPercentageByTypeQueryHandler : IRequestHandler<GetDiscountPercentageByTypeQuery, Response<decimal>>
+    public class GetDiscountPercentageByTypeQueryHandler : IRequestHandler<GetDiscountPercentageByTypeQuery, Response<string>>
     {
         private readonly IGenericRepositoryAsync<DiscountType> _discountRepo;
 
@@ -25,13 +25,13 @@ namespace SHOPRURETAIL.Application.Features.Discounts.Queries
             _discountRepo = discountRepo;
         }
 
-        public Task<Response<decimal>> Handle(GetDiscountPercentageByTypeQuery request, CancellationToken cancellationToken)
+        public Task<Response<string>> Handle(GetDiscountPercentageByTypeQuery request, CancellationToken cancellationToken)
         {
 
-            var discount = _discountRepo.GetByParameter(c => c.Name.ToLower().Contains(request.Type.ToLower().Trim()) && c.IsPercentage==true).FirstOrDefault();
+            var discount = _discountRepo.GetByParameter(c => c.Name.ToLower().Contains(request.Type.ToLower().Trim())).FirstOrDefault();
             if (discount == null) throw new KeyNotFoundException("discount type cannot be found");
 
-            return Task.FromResult(new Response<decimal>{ Succeeded = true, Data =discount.Value});
+            return Task.FromResult(new Response<string>{ Succeeded = true, Data =$"{discount.Value}%"});
         }
     }
 }

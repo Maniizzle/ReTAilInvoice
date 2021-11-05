@@ -14,7 +14,7 @@ namespace SHOPRURETAIL.Application.Features.Requests
         public long CustomerId { get; set; }
 
         [Required]
-        public List<InvoiceDetailsRequest> InvoiceDetails { get; set; }
+        public List<InvoiceDetailsRequest> InvoiceItems { get; set; }
     }
 
 

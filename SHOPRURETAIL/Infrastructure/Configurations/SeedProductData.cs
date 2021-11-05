@@ -18,7 +18,7 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
                 new Product
                 {
                      Id=1,
-                    Category = "Groceries",
+                    Category = Category.Groceries,
                     Description="OLoyin Beans",
                     Name="Beans",
                        UnitPrice=500
@@ -26,7 +26,7 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
                 new Product
                 {
                     Id = 2,
-                    Category = "Electronics",
+                    Category = Category.Electronics,
                     Description = "Beats by Dre Headset",
                     Name = "HeadSet",
                     UnitPrice = 5000
@@ -34,7 +34,7 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
                 new Product
                 {
                     Id = 3,
-                    Category = "Groceries",
+                    Category = Category.Groceries,
                     Description = "Power Oil",
                     Name = " Oil",
                     UnitPrice = 1500
@@ -42,16 +42,16 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
                new Product
                {
                    Id = 4,
-                   Category = "Groceries",
-                    Description = "Poundo Yam",
+                    Category = Category.Groceries,
+                   Description = "Poundo Yam",
                    Name = "Poundo Yam",
                    UnitPrice = 7800
                },
                new Product
                {
                    Id = 5,
-                    Description = "Poundo Yam",
-                   Category = "1 Crate of Raw Egg",
+                    Category = Category.Groceries,
+                   Description = "1 Crate of Raw Egg",
                    Name = "Egg",
                    UnitPrice = 5600
                },
@@ -59,7 +59,7 @@ namespace SHOPRURETAIL.Infrastructure.Configurations
                {
                    Id = 6,
                     Description = "Binatone Standing Fan",
-                   Category = "Electronics",
+                    Category = Category.Electronics,
                    Name = "Binatone Fan",
                    UnitPrice = 9000
                }

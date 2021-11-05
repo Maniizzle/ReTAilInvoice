@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SHOPRURETAIL.Domain.Entities
 
 {
-    public class InvoiceDetail
+    public class InvoiceItem
     {
         [Key]
         
@@ -17,7 +17,7 @@ namespace SHOPRURETAIL.Domain.Entities
         [Required] 
         public long ProductId { get; set; }
 
-        public Customer Product { get; set; }
+        public Product Product { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -26,18 +26,15 @@ namespace SHOPRURETAIL.Domain.Entities
         [Required]
         public decimal ProductUnitPrice { get; set; }
 
+        public Category ProduuctCategory { get; set; }
+
         [Required]
         [MaxLength(30)]
         public int ProductQuantity { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(19, 2)")]
-        public decimal DerivedProductCost { get; set; } 
 
-        
         [Required]
-        [Column(TypeName = "decimal(19, 2)")]
-        public decimal TotalDerivedCost { get; set; }
+        public decimal TotalCost { get; set; }
 
         [ForeignKey(nameof(Invoice))]
         public int InvoiceId { get; set; }
