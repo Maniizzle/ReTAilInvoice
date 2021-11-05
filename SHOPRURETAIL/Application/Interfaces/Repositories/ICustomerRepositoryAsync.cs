@@ -10,5 +10,6 @@ namespace SHOPRURETAIL.Application.Interfaces.Repositories
     public interface ICustomerRepositoryAsync : IGenericRepositoryAsync<Customer>
     {
         public Task<Customer> GetCustomer(long id);
+        public Task<Customer> GetCustomerByEmail(string email);
     }
 }

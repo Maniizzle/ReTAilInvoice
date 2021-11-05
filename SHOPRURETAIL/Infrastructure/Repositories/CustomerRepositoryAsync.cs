@@ -25,6 +25,9 @@ namespace Infrastructure.Persistence.Repositories
            return  _customers.Include(c => c.CustomerType).FirstOrDefaultAsync(c=>c.CustomerId==id);
         }
 
-        
+        public async Task<Customer> GetCustomerByEmail(string email)
+        {
+          return await _customers.FirstOrDefaultAsync(c => c.Email.Trim().ToLower() == email.ToLower().Trim());
+        }
     }
 }

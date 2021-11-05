@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SHOPRURETAIL.Application.Requests;
 using SHOPRURETAIL.Application.Interfaces;
 using SHOPRURETAIL.Application.Exceptions;
+using SHOPRURETAIL.Application.Interfaces.Repositories;
 
 namespace SHOPRURETAIL.Application.Features.Customers.Commands
 {
@@ -17,9 +18,9 @@ namespace SHOPRURETAIL.Application.Features.Customers.Commands
     }
     public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Response<long>>
     {
-        private readonly IGenericRepositoryAsync<Customer> _customerRepo;
+        private readonly ICustomerRepositoryAsync _customerRepo;
         private readonly IMapper _mapper;
-        public CreateCustomerCommandHandler(IGenericRepositoryAsync<Customer> customerRepo, IMapper mapper)
+        public CreateCustomerCommandHandler(ICustomerRepositoryAsync customerRepo, IMapper mapper)
         {
             _customerRepo = customerRepo;
             _mapper = mapper;
@@ -27,7 +28,7 @@ namespace SHOPRURETAIL.Application.Features.Customers.Commands
 
         public async Task<Response<long>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            var customer = _customerRepo.GetByParameter(c => c.Email.ToLower().Trim() == request.Email.ToLower().Trim()).FirstOrDefault();
+            var customer =await _customerRepo.GetCustomerByEmail(request.Email);
             if (customer is not null) throw new ApiException("duplicate email not allowed");
 
             if (request.CustomerTypeId == 0) request.CustomerTypeId = null;

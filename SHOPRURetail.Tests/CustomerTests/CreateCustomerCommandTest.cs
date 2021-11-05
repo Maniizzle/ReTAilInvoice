@@ -4,6 +4,7 @@ using Moq;
 using SHOPRURETAIL.Application.Exceptions;
 using SHOPRURETAIL.Application.Features.Customers.Commands;
 using SHOPRURETAIL.Application.Interfaces;
+using SHOPRURETAIL.Application.Interfaces.Repositories;
 using SHOPRURETAIL.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,14 @@ namespace SHOPRURetail.Tests.CustomerTests
 {
    public class CreateCustomerCommandTest
     {
-        Mock<IGenericRepositoryAsync<Customer>> customerrepo;
+        Mock<ICustomerRepositoryAsync> customerrepo;
         Mock<IMapper> mapper;
         Mock<IMediator> mediator;
         public CreateCustomerCommandTest()
         {
              mediator = new Mock<IMediator>();
              mapper = new Mock<IMapper>();
-             customerrepo = new Mock<IGenericRepositoryAsync<Customer>>();
+             customerrepo = new Mock<ICustomerRepositoryAsync>();
 
         }
 
@@ -31,9 +32,9 @@ namespace SHOPRURetail.Tests.CustomerTests
         public async Task CreateCustomerCommandShouldThrowExceptionIfEmailIsDuplicate()
         {
            
-            CreateCustomerCommand command = new CreateCustomerCommand() { Email=""};
+            CreateCustomerCommand command = new CreateCustomerCommand() { Email="bola@gmail.com"};
 
-            customerrepo.Setup(c => c.GetByParameter(c => c.Email == It.IsAny<string>())).Returns(new List<Customer>().AsQueryable());
+            customerrepo.Setup(c =>c.GetCustomerByEmail(It.IsAny<string>())).Returns(Task.FromResult(new Customer()));
             mapper.Setup(c => c.Map<Customer>(It.IsAny<CreateCustomerCommand>()));
             CreateCustomerCommandHandler handler = new CreateCustomerCommandHandler(customerrepo.Object,mapper.Object);
 
