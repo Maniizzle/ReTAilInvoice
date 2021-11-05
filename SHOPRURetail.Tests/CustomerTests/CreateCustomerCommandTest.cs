@@ -33,13 +33,11 @@ namespace SHOPRURetail.Tests.CustomerTests
            
             CreateCustomerCommand command = new CreateCustomerCommand() { Email=""};
 
-            customerrepo.Setup(c => c.GetByParameter(c => c.Email == It.IsAny<string>()).FirstOrDefault()).Returns(new Customer());
+            customerrepo.Setup(c => c.GetByParameter(c => c.Email == It.IsAny<string>())).Returns(new List<Customer>().AsQueryable());
             mapper.Setup(c => c.Map<Customer>(It.IsAny<CreateCustomerCommand>()));
             CreateCustomerCommandHandler handler = new CreateCustomerCommandHandler(customerrepo.Object,mapper.Object);
 
             //Act
-            var x = await handler.Handle(command, new System.Threading.CancellationToken());
-
             await Assert.ThrowsAsync<ApiException>(async () => await handler.Handle(command, new System.Threading.CancellationToken()));
             
         }
